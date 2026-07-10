@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#7d3cff 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#5523c7 0%,transparent 40%),
+    linear-gradient(135deg,#12081f,#1d1034,#12081f);
+
+    overflow:hidden;
+
+}
+
+body::before,
+body::after{
+
+    content:"";
+    position:absolute;
+    width:120%;
+    height:350px;
+    border-radius:50%;
+    background:rgba(140,80,255,.08);
+    bottom:-180px;
+
+}
+
+body::after{
+
+    right:-10%;
+    height:250px;
+    background:rgba(190,120,255,.05);
+
+}
+
+.cadastro{
+
+    width:470px;
+
+    padding:40px;
+
+    background:rgba(255,255,255,.04);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:25px;
+
+    color:white;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+
+}
+
+.logo{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(135deg,#b155ff,#6b2fff);
+
+    font-size:40px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 0 30px rgba(160,80,255,.45);
+
+}
+
+h1{
+
+    text-align:center;
+    margin-bottom:10px;
+    font-size:34px;
+
+}
+
+.sub{
+
+    text-align:center;
+    color:#b9b2ca;
+    margin-bottom:30px;
+
+}
+
+.input{
+
+    margin-bottom:18px;
+
+}
+
+label{
+
+    display:block;
+    margin-bottom:8px;
+    font-weight:500;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    background:transparent;
+
+    border:2px solid #5f38b7;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+input:focus{
+
+    border-color:#a54eff;
+
+    box-shadow:0 0 15px rgba(165,78,255,.35);
+
+}
+
+input::placeholder{
+
+    color:#998db7;
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:white;
+
+    cursor:pointer;
+
+    background:linear-gradient(90deg,#b155ff,#6b2fff);
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 25px rgba(177,85,255,.45);
+
+}
+
+.footer{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#b8b1c8;
+
+}
+
+.footer a{
+
+    color:#c16aff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.footer a:hover{
+
+    color:white;
+
+}
+
+.erro{
+
+    color:#ff8fa3;
+    font-size:14px;
+    margin-top:10px;
+    text-align:center;
+
+}
+
+@media(max-width:550px){
+
+.cadastro{
+
+    width:90%;
+    padding:30px;
+
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="cadastro">
+
+    <div class="logo">📝</div>
+
+    <h1>Criar Conta</h1>
+
+    <div class="sub">
+        Preencha os dados abaixo para começar.
+    </div>
+
+    <form id="formCadastro">
+
+        <div class="input">
+            <label>Nome de usuário</label>
+            <input type="text" id="usuario" placeholder="Digite seu usuário">
+        </div>
+
+        <div class="input">
+            <label>E-mail</label>
+            <input type="email" id="email" placeholder="Digite seu e-mail">
+        </div>
+
+        <div class="input">
+            <label>Senha</label>
+            <input type="password" id="senha" placeholder="Crie uma senha">
+        </div>
+
+        <div class="input">
+            <label>Confirmar senha</label>
+            <input type="password" id="confirmar" placeholder="Repita sua senha">
+        </div>
+
+        <button type="submit">
+            Criar Conta
+        </button>
+
+        <div class="erro" id="erro"></div>
+
+    </form>
+
+    <div class="footer">
+        Já possui uma conta?
+        <a href="index.html">Entrar</a>
+    </div>
+
+</div>
+
+<script>
+
+const form = document.getElementById("formCadastro");
+const erro = document.getElementById("erro");
+
+form.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    erro.innerHTML="";
+
+    const usuario=document.getElementById("usuario").value.trim();
+    const email=document.getElementById("email").value.trim();
+    const senha=document.getElementById("senha").value;
+    const confirmar=document.getElementById("confirmar").value;
+
+    if(usuario=="" || email=="" || senha=="" || confirmar==""){
+        erro.innerHTML="Preencha todos os campos.";
+        return;
+    }
+
+    if(senha.length<6){
+        erro.innerHTML="A senha deve possuir pelo menos 6 caracteres.";
+        return;
+    }
+
+    if(senha!==confirmar){
+        erro.innerHTML="As senhas não coincidem.";
+        return;
+    }
+
+    alert("Cadastro realizado com sucesso!");
+
+});
+
+</script>
+
+</body>
+</html>

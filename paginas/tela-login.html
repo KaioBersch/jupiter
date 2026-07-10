@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#7d3cff 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#5623c8 0%,transparent 40%),
+    linear-gradient(135deg,#12081f,#1d1034,#14091f);
+
+    overflow:hidden;
+}
+
+/* Ondas */
+
+body::before,
+body::after{
+
+    content:"";
+    position:absolute;
+    width:120%;
+    height:350px;
+    border-radius:50%;
+    background:rgba(130,75,255,.08);
+    bottom:-180px;
+
+}
+
+body::before{
+    left:-10%;
+    transform:rotate(-5deg);
+}
+
+body::after{
+    right:-15%;
+    height:250px;
+    background:rgba(180,120,255,.05);
+}
+
+.login{
+
+    width:420px;
+    padding:45px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:25px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.4);
+
+    color:white;
+
+}
+
+.logo{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#b155ff,#6f35ff);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:40px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 0 30px rgba(150,70,255,.5);
+
+}
+
+h1{
+
+    text-align:center;
+    margin-bottom:10px;
+    font-size:40px;
+
+}
+
+.sub{
+
+    text-align:center;
+    color:#b7b0ca;
+    margin-bottom:35px;
+
+}
+
+label{
+
+    display:block;
+    margin-bottom:8px;
+    font-weight:500;
+
+}
+
+.input{
+
+    position:relative;
+    margin-bottom:25px;
+
+}
+
+.input input{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    background:transparent;
+
+    border:2px solid #5634ad;
+
+    border-radius:12px;
+
+    outline:none;
+
+    color:white;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.input input:focus{
+
+    border-color:#a04cff;
+
+    box-shadow:0 0 15px rgba(153,74,255,.35);
+
+}
+
+.input input::placeholder{
+
+    color:#9c8fb8;
+
+}
+
+.senha{
+
+    text-align:right;
+    margin-top:-10px;
+    margin-bottom:25px;
+
+}
+
+.senha a{
+
+    color:#b65cff;
+    text-decoration:none;
+    transition:.3s;
+
+}
+
+.senha a:hover{
+
+    color:white;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    background:linear-gradient(90deg,#a54eff,#6b2fff);
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 25px rgba(165,78,255,.5);
+
+}
+
+.cadastro{
+
+    margin-top:35px;
+
+    text-align:center;
+
+    color:#b9b2ca;
+
+}
+
+.cadastro a{
+
+    color:#b85cff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.cadastro a:hover{
+
+    color:white;
+
+}
+
+@media(max-width:500px){
+
+.login{
+
+    width:90%;
+    padding:35px;
+
+}
+
+h1{
+
+    font-size:32px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login">
+
+    <div class="logo">
+        🔒
+    </div>
+
+    <h1>Bem-vindo!</h1>
+
+    <div class="sub">
+        Faça login para acessar sua conta
+    </div>
+
+    <form>
+
+        <label>E-mail</label>
+
+        <div class="input">
+            <input type="email" placeholder="Digite seu e-mail">
+        </div>
+
+        <label>Senha</label>
+
+        <div class="input">
+            <input type="password" id="senha" placeholder="Digite sua senha">
+        </div>
+
+        <div class="senha">
+            <a href="#">Esqueceu sua senha?</a>
+        </div>
+
+        <button type="submit">
+            Entrar
+        </button>
+
+    </form>
+
+    <div class="cadastro">
+        Não possui uma conta?
+        <a href="#">Cadastre-se</a>
+    </div>
+
+</div>
+
+<script>
+
+document.querySelector("form").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const email=document.querySelector("input[type=email]").value;
+    const senha=document.querySelector("#senha").value;
+
+    if(email==="" || senha===""){
+
+        alert("Preencha todos os campos.");
+        return;
+
+    }
+
+    alert("Login realizado!");
+
+});
+
+</script>
+
+</body>
+</html>
