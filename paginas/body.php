@@ -176,7 +176,15 @@
     ════════════════════════════════════════════════ -->
     <div id="explorar" class="tab-content active-tab">
 
-        <div class="header">Explore</div>
+        <div class="header">
+            <h2>Explore</h2>
+                <div class="header-buttons">
+                    <a href="tela-login.php" class="btn-header">Entrar</a>
+                    <a href="tela-cadastro.php" class="btn-header">Cadastrar</a>
+                </div>
+        </div>
+
+
 
         <!-- ── BUSCA POR TEXTO ──────────────────────────
              O evento "input" no JS chama filterCards() a cada tecla

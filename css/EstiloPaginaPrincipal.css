@@ -252,17 +252,44 @@ body {
 .container { max-width:430px; margin:auto; min-height:100vh; padding-bottom:90px; }
 
 /* ── HEADER (glassmorphism) ──────────────────────────── */
-.header {
-    padding: 20px;
-    font-size: 26px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 10;
-    border-bottom: 1px solid var(--border-color);
+.header{
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    background:var(--nav-bg);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border-color);
+    z-index:10;
+}
+
+.header h2{
+    font-size:26px;
+    margin:0;
+}
+
+.header-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn-header{
+    text-decoration:none;
+    background:#7B2CBF;
+    color:white;
+    padding:8px 16px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn-header:hover{
+    background:#5A189A;
+
 }
 
 /* ── BARRA DE BUSCA ──────────────────────────────────── */
