@@ -1,0 +1,820 @@
+
+:root {
+    --cosmos-black: #020209;
+    --cosmos-deep: #060414;
+    --cosmos-blue: #0d1030;
+    --cosmos-violet: #21133d;
+    --nebula-purple: #64459a;
+    --nebula-violet: #9e79d0;
+    --jupiter-rust: #8e4135;
+    --jupiter-red: #b86042;
+    --jupiter-copper: #d58b59;
+    --jupiter-sand: #e6b979;
+    --jupiter-gold: #f4d898;
+    --jupiter-cloud: #ffe8bd;
+    --text-main: #fff8ea;
+    --text-muted: #c5b2bd;
+    --text-soft: #958196;
+    --line: rgba(237, 207, 177, .18);
+    --line-strong: rgba(244, 216, 152, .56);
+    --surface: rgba(19, 12, 34, .78);
+    --surface-raised: rgba(35, 19, 48, .72);
+    --surface-input: rgba(3, 3, 13, .56);
+    --surface-file: rgba(51, 28, 53, .64);
+    --focus-ring: rgba(244, 216, 152, .28);
+    --success: #8bd5a6;
+    --error: #ff9c8c;
+    --error-bg: rgba(153, 52, 67, .20);
+    --error-line: rgba(255, 137, 124, .48);
+    --shadow-deep: rgba(0, 0, 0, .70);
+    --shadow-copper: rgba(181, 86, 57, .34);
+    --radius-panel: 30px;
+    --radius-control: 15px;
+    --transition-fast: 160ms ease;
+    --transition: 280ms cubic-bezier(.2, .75, .2, 1);
+    --transition-slow: 650ms cubic-bezier(.2, .75, .2, 1);
+}
+
+/* ---------------------------------------------------------
+   RESET E FUNDAÇÃO
+   --------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100%;
+    color-scheme: dark;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 320px;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    padding: clamp(26px, 6vw, 82px) 18px;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 5% 10%, rgba(255, 236, 191, .90) 0 1px, transparent 2px),
+        radial-gradient(circle at 16% 72%, rgba(217, 173, 255, .80) 0 1px, transparent 2px),
+        radial-gradient(circle at 35% 23%, rgba(255, 255, 255, .76) 0 1px, transparent 2px),
+        radial-gradient(circle at 67% 12%, rgba(239, 193, 117, .86) 0 1.2px, transparent 2.2px),
+        radial-gradient(circle at 91% 42%, rgba(255, 244, 214, .82) 0 1px, transparent 2px),
+        radial-gradient(circle at 79% 86%, rgba(214, 154, 255, .74) 0 1px, transparent 2px),
+        radial-gradient(ellipse at 10% 2%, rgba(91, 38, 135, .36), transparent 38%),
+        radial-gradient(ellipse at 94% 76%, rgba(142, 49, 54, .28), transparent 42%),
+        radial-gradient(ellipse at 45% 125%, rgba(42, 27, 101, .42), transparent 55%),
+        linear-gradient(138deg, var(--cosmos-black) 0%, var(--cosmos-deep) 37%, var(--cosmos-blue) 68%, var(--cosmos-violet) 100%);
+    background-size: 170px 170px, 213px 213px, 274px 274px, 319px 319px, 384px 384px, 445px 445px, auto, auto, auto, auto;
+    color: var(--text-main);
+    font-family: "Poppins", "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+/* Campo estelar em movimento: as múltiplas camadas criam profundidade. */
+body {
+    animation: cosmic-background-drift 26s linear infinite alternate;
+}
+
+body::before,
+body::after {
+    position: fixed;
+    z-index: -1;
+    content: "";
+    pointer-events: none;
+}
+
+/* Júpiter: planeta com faixas atmosféricas e detalhes de tempestade. */
+body::before {
+    top: 7%;
+    right: -118px;
+    width: 270px;
+    height: 270px;
+    border: 1px solid rgba(255, 228, 177, .70);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 29% 22%, rgba(255, 245, 208, .84) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 31%, rgba(103, 40, 37, .62) 0 14px, transparent 15px),
+        radial-gradient(circle at 34% 70%, rgba(98, 38, 35, .64) 0 20px, transparent 21px),
+        radial-gradient(circle at 66% 78%, rgba(255, 221, 162, .43) 0 11px, transparent 12px),
+        radial-gradient(ellipse at 51% 55%, rgba(171, 70, 48, .56) 0 10px, transparent 11px),
+        repeating-linear-gradient(176deg,
+            #f6dcad 0 15px,
+            #d9925c 16px 27px,
+            #a34f3e 28px 39px,
+            #e9b774 40px 51px,
+            #74332f 52px 62px,
+            #f5d8a4 63px 78px,
+            #c9764e 79px 91px);
+    box-shadow:
+        0 0 0 12px rgba(226, 161, 91, .06),
+        0 0 0 25px rgba(155, 111, 204, .045),
+        0 0 70px rgba(201, 108, 67, .40),
+        inset -36px -34px 45px rgba(33, 12, 35, .52),
+        inset 16px 13px 32px rgba(255, 247, 214, .28);
+    transform: rotate(-17deg);
+    animation: jupiter-float 10s ease-in-out infinite;
+}
+
+/* Anéis de Júpiter, inclinados e pulsando em uma órbita lenta. */
+body::after {
+    top: 7.5%;
+    right: -190px;
+    width: 595px;
+    height: 290px;
+    opacity: .84;
+    border: 1px solid rgba(242, 211, 148, .36);
+    border-right-color: rgba(249, 220, 158, .82);
+    border-left-color: rgba(149, 111, 202, .22);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 10px rgba(218, 135, 77, .065),
+        0 0 0 24px rgba(242, 211, 148, .10),
+        0 0 0 41px rgba(149, 111, 202, .075),
+        0 0 0 60px rgba(218, 135, 77, .045),
+        inset 0 0 24px rgba(242, 211, 148, .08);
+    transform: rotate(-17deg);
+    animation: ring-orbit 13s ease-in-out infinite;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[type="button"],
+[type="submit"] {
+    touch-action: manipulation;
+}
+
+::selection {
+    background: var(--jupiter-gold);
+    color: var(--cosmos-black);
+}
+
+/* ---------------------------------------------------------
+   PAINEL PRINCIPAL DO CADASTRO
+   --------------------------------------------------------- */
+body > div {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 760px);
+    padding: clamp(28px, 6vw, 56px);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-panel);
+    background:
+        linear-gradient(140deg, rgba(255, 231, 190, .10), transparent 26%),
+        linear-gradient(320deg, rgba(131, 54, 52, .17), transparent 45%),
+        linear-gradient(110deg, rgba(78, 51, 124, .18), transparent 65%),
+        var(--surface);
+    box-shadow:
+        0 44px 110px var(--shadow-deep),
+        0 12px 35px rgba(0, 0, 0, .35),
+        inset 0 1px 0 rgba(255, 249, 220, .11);
+    backdrop-filter: blur(26px) saturate(135%);
+    -webkit-backdrop-filter: blur(26px) saturate(135%);
+    animation: panel-entry 760ms var(--transition) both;
+}
+
+/* Pontos em órbita: asteroides animados sem precisar de imagens. */
+body > div::before {
+    position: absolute;
+    top: 7%;
+    left: 4%;
+    width: 8px;
+    height: 8px;
+    content: "";
+    border: 1px solid rgba(248, 215, 145, .78);
+    border-radius: 50%;
+    background: #c8754d;
+    box-shadow:
+        84px 34px 0 -2px #e1a668,
+        168px 129px 0 -3px #886181,
+        286px 51px 0 -2px #efbc76,
+        397px 164px 0 -3px #b2614c,
+        518px 82px 0 -2px #d99d6a,
+        638px 226px 0 -3px #9a5b72,
+        748px 16px 0 -2px #e3ac6e,
+        91px 284px 0 -3px #9a5b72,
+        256px 348px 0 -2px #d99460,
+        472px 306px 0 -3px #efbd75,
+        622px 408px 0 -2px #a96552,
+        740px 360px 0 -3px #c9805c;
+    filter: drop-shadow(0 0 8px rgba(240, 183, 108, .32));
+    pointer-events: none;
+    animation: asteroids-crossing 22s linear infinite;
+}
+
+/* Halo interno do cartão. */
+body > div::after {
+    position: absolute;
+    right: -180px;
+    bottom: -200px;
+    width: 470px;
+    height: 470px;
+    content: "";
+    border: 1px solid rgba(245, 214, 150, .10);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 15px rgba(245, 214, 150, .025),
+        0 0 0 36px rgba(160, 121, 208, .035),
+        0 0 0 64px rgba(245, 214, 150, .026);
+    pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   TÍTULO E ABERTURA
+   --------------------------------------------------------- */
+h1 {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 36px;
+    color: var(--text-main);
+    font-size: clamp(1.62rem, 5vw, 2.60rem);
+    font-weight: 750;
+    letter-spacing: -.055em;
+    line-height: 1.08;
+    text-align: center;
+    text-wrap: balance;
+}
+
+h1::before {
+    display: block;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 22px;
+    content: "";
+    border: 1px solid rgba(255, 231, 185, .78);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 29% 22%, rgba(255, 247, 214, .82) 0 2px, transparent 3px),
+        radial-gradient(circle at 69% 38%, rgba(110, 43, 37, .62) 0 7px, transparent 8px),
+        radial-gradient(circle at 39% 73%, rgba(113, 44, 38, .54) 0 9px, transparent 10px),
+        repeating-linear-gradient(174deg,
+            var(--jupiter-cloud) 0 7px,
+            var(--jupiter-sand) 8px 13px,
+            var(--jupiter-copper) 14px 19px,
+            var(--jupiter-rust) 20px 25px,
+            var(--jupiter-cloud) 26px 32px);
+    box-shadow:
+        0 0 0 7px rgba(230, 185, 121, .07),
+        0 0 0 13px rgba(158, 121, 208, .045),
+        0 0 32px rgba(213, 139, 89, .33),
+        inset -10px -9px 16px rgba(47, 14, 34, .35),
+        inset 6px 6px 13px rgba(255, 247, 214, .26);
+    animation: title-planet-float 6s ease-in-out infinite;
+}
+
+h1::after {
+    display: block;
+    width: min(240px, 70%);
+    height: 2px;
+    margin: 17px auto 0;
+    content: "";
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--jupiter-gold), transparent);
+    box-shadow: 0 0 15px rgba(244, 216, 152, .24);
+}
+
+/* ---------------------------------------------------------
+   FORMULÁRIO
+   --------------------------------------------------------- */
+form {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 0;
+}
+
+form > label {
+    display: block;
+    grid-column: span 1;
+    margin: 20px 0 8px;
+    color: var(--jupiter-gold);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .085em;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+form > label:first-of-type {
+    margin-top: 0;
+}
+
+form > label:nth-of-type(1),
+form > label:nth-of-type(5),
+form > label:nth-of-type(6) {
+    grid-column: 1 / -1;
+}
+
+form > label:nth-of-type(1) + input,
+form > label:nth-of-type(5) + input,
+form > label:nth-of-type(6) + input {
+    grid-column: 1 / -1;
+}
+
+form > input,
+form > select,
+form > textarea {
+    display: block;
+    width: 100%;
+    min-height: 55px;
+    padding: 15px 17px;
+    outline: none;
+    border: 1px solid rgba(231, 185, 121, .32);
+    border-radius: var(--radius-control);
+    background: var(--surface-input);
+    color: var(--text-main);
+    font-size: .91rem;
+    line-height: 1.45;
+    caret-color: var(--jupiter-gold);
+    box-shadow: inset 0 1px 0 rgba(255, 248, 218, .045);
+    transition:
+        border-color var(--transition-fast),
+        background-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+form > input:hover,
+form > select:hover,
+form > textarea:hover {
+    border-color: rgba(244, 216, 152, .58);
+    background: rgba(3, 3, 13, .70);
+}
+
+form > input:focus,
+form > select:focus,
+form > textarea:focus {
+    border-color: var(--line-strong);
+    background: rgba(3, 3, 13, .78);
+    box-shadow:
+        0 0 0 4px var(--focus-ring),
+        0 12px 24px rgba(0, 0, 0, .17),
+        inset 0 1px 0 rgba(255, 248, 218, .08);
+    transform: translateY(-1px);
+}
+
+form > input:required:invalid:not(:placeholder-shown),
+form > select:required:invalid {
+    border-color: var(--error);
+    box-shadow: 0 0 0 4px rgba(255, 156, 140, .10);
+}
+
+form > input:required:valid:not(:placeholder-shown),
+form > select:required:valid {
+    border-color: rgba(139, 213, 166, .62);
+}
+
+form > input::placeholder,
+form > textarea::placeholder {
+    color: var(--text-soft);
+    opacity: 1;
+}
+
+form > select {
+    appearance: none;
+    padding-right: 48px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--jupiter-gold) 50%),
+        linear-gradient(135deg, var(--jupiter-gold) 50%, transparent 50%),
+        linear-gradient(to right, rgba(244, 216, 152, .14), rgba(244, 216, 152, .14));
+    background-position:
+        calc(100% - 20px) 23px,
+        calc(100% - 14px) 23px,
+        calc(100% - 42px) 50%;
+    background-repeat: no-repeat;
+    background-size: 6px 6px, 6px 6px, 1px 58%;
+}
+
+form > select option {
+    background: #171022;
+    color: var(--text-main);
+}
+
+/* Campo de imagens com aparência de painel de upload. */
+form > input[type="file"] {
+    min-height: 74px;
+    padding: 11px;
+    border-style: dashed;
+    border-color: rgba(231, 185, 121, .44);
+    background:
+        linear-gradient(135deg, rgba(158, 121, 208, .10), transparent 55%),
+        var(--surface-file);
+    cursor: pointer;
+}
+
+form > input[type="file"]:hover {
+    border-color: var(--jupiter-gold);
+    background:
+        linear-gradient(135deg, rgba(213, 139, 89, .17), transparent 55%),
+        var(--surface-raised);
+}
+
+form > input[type="file"]::file-selector-button {
+    min-height: 45px;
+    margin-right: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 232, 190, .48);
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--jupiter-copper), var(--jupiter-rust));
+    color: #fff7e8;
+    cursor: pointer;
+    font-size: .78rem;
+    font-weight: 750;
+    transition: transform var(--transition-fast), filter var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+form > input[type="file"]::file-selector-button:hover {
+    box-shadow: 0 7px 16px var(--shadow-copper);
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+form > input[type="file"]::file-selector-button:active {
+    transform: scale(.97);
+}
+
+/* A descrição existente é um input text; estas regras também suportam textarea futuro. */
+form > input[name="descricao"],
+form > textarea[name="descricao"] {
+    min-height: 96px;
+    resize: vertical;
+    white-space: normal;
+}
+
+form > textarea[name="descricao"] {
+    line-height: 1.55;
+}
+
+/* Os <br> do PHP não precisam controlar o layout com CSS Grid. */
+form > br {
+    display: none;
+}
+
+/* ---------------------------------------------------------
+   BOTÃO FINALIZAR
+   --------------------------------------------------------- */
+form > button[type="submit"] {
+    position: relative;
+    grid-column: 1 / -1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 61px;
+    overflow: hidden;
+    margin-top: 30px;
+    padding: 17px 23px;
+    border: 1px solid rgba(255, 233, 190, .56);
+    border-radius: var(--radius-control);
+    outline: none;
+    background:
+        linear-gradient(112deg, transparent 0 26%, rgba(255, 244, 207, .25) 44%, transparent 64%),
+        linear-gradient(135deg, var(--jupiter-copper), var(--jupiter-rust));
+    background-size: 240% 100%, 100% 100%;
+    color: #fff9ed;
+    cursor: pointer;
+    font-size: .96rem;
+    font-weight: 800;
+    letter-spacing: .035em;
+    box-shadow:
+        0 18px 35px var(--shadow-copper),
+        inset 0 1px 0 rgba(255, 250, 222, .33);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast),
+        background-position 700ms ease;
+}
+
+form > button[type="submit"]::before {
+    position: absolute;
+    top: 0;
+    left: -38%;
+    width: 26%;
+    height: 100%;
+    content: "";
+    transform: skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
+    transition: left 560ms ease;
+}
+
+form > button[type="submit"]::after {
+    width: 8px;
+    height: 8px;
+    margin-left: 11px;
+    content: "✦";
+    color: var(--jupiter-gold);
+    font-size: .82rem;
+    line-height: 1;
+    transition: transform var(--transition-fast);
+}
+
+form > button[type="submit"]:hover {
+    background-position: 100% 0, 0 0;
+    box-shadow:
+        0 23px 46px rgba(181, 86, 57, .48),
+        0 0 0 4px rgba(244, 216, 152, .08),
+        inset 0 1px 0 rgba(255, 250, 222, .42);
+    filter: brightness(1.08) saturate(1.08);
+    transform: translateY(-3px);
+}
+
+form > button[type="submit"]:hover::before {
+    left: 118%;
+}
+
+form > button[type="submit"]:hover::after {
+    transform: rotate(90deg) scale(1.2);
+}
+
+form > button[type="submit"]:active {
+    box-shadow: 0 9px 18px rgba(181, 86, 57, .36);
+    transform: translateY(-1px) scale(.99);
+}
+
+form > button[type="submit"]:focus-visible {
+    box-shadow:
+        0 0 0 4px var(--focus-ring),
+        0 18px 35px var(--shadow-copper);
+}
+
+/* ---------------------------------------------------------
+   ESTADOS DE SERVIDOR E AJUDA VISUAL
+   --------------------------------------------------------- */
+.erro,
+.error,
+.alert-error {
+    grid-column: 1 / -1;
+    margin-bottom: 18px;
+    padding: 13px 15px;
+    border: 1px solid var(--error-line);
+    border-radius: 13px;
+    background: var(--error-bg);
+    color: var(--error);
+    font-size: .82rem;
+    font-weight: 650;
+    line-height: 1.55;
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    animation: error-entry 360ms var(--transition) both;
+}
+
+.success,
+.alert-success {
+    grid-column: 1 / -1;
+    margin-bottom: 18px;
+    padding: 13px 15px;
+    border: 1px solid rgba(139, 213, 166, .44);
+    border-radius: 13px;
+    background: rgba(77, 147, 101, .14);
+    color: var(--success);
+    font-size: .82rem;
+    font-weight: 650;
+    line-height: 1.55;
+    text-align: center;
+}
+
+/* ---------------------------------------------------------
+   ANIMAÇÕES COSMOS
+   --------------------------------------------------------- */
+@keyframes cosmic-background-drift {
+    0% {
+        background-position: 0 0, 0 0, 0 0, 0 0, center, center, center, center, center, center;
+    }
+    100% {
+        background-position: 110px 70px, -150px 100px, 140px -80px, -190px 120px, center, center, center, center, center, center;
+    }
+}
+
+@keyframes jupiter-float {
+    0%, 100% {
+        filter: saturate(.95) brightness(.94);
+        transform: rotate(-17deg) translateY(0) scale(.98);
+    }
+    50% {
+        filter: saturate(1.12) brightness(1.06);
+        transform: rotate(-12deg) translateY(-7px) scale(1.03);
+    }
+}
+
+@keyframes ring-orbit {
+    0%, 100% {
+        opacity: .48;
+        transform: rotate(-17deg) scale(.98);
+    }
+    50% {
+        opacity: .90;
+        transform: rotate(-12deg) scale(1.035);
+    }
+}
+
+@keyframes asteroids-crossing {
+    0% {
+        transform: translate3d(-80px, -30px, 0) rotate(0deg);
+    }
+    48% {
+        transform: translate3d(530px, 310px, 0) rotate(170deg);
+    }
+    100% {
+        transform: translate3d(860px, 520px, 0) rotate(360deg);
+    }
+}
+
+@keyframes panel-entry {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes title-planet-float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-6px) rotate(2deg);
+    }
+}
+
+@keyframes error-entry {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVIDADE
+   --------------------------------------------------------- */
+@media (max-width: 650px) {
+    body {
+        align-items: flex-start;
+        padding: 24px 12px 34px;
+    }
+
+    body::before {
+        top: 2%;
+        right: -145px;
+        width: 230px;
+        height: 230px;
+    }
+
+    body::after {
+        top: 2.5%;
+        right: -232px;
+        width: 520px;
+        height: 250px;
+    }
+
+    body > div {
+        width: 100%;
+        margin: auto 0;
+        padding: 30px 21px 27px;
+        border-radius: 24px;
+    }
+
+    h1 {
+        margin-bottom: 29px;
+        font-size: clamp(1.48rem, 7vw, 2.05rem);
+    }
+
+    h1::before {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 18px;
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    form > label,
+    form > label:nth-of-type(1),
+    form > label:nth-of-type(5),
+    form > label:nth-of-type(6) {
+        grid-column: 1 / -1;
+    }
+
+    form > input,
+    form > select,
+    form > textarea,
+    form > label:nth-of-type(1) + input,
+    form > label:nth-of-type(5) + input,
+    form > label:nth-of-type(6) + input {
+        grid-column: 1 / -1;
+    }
+
+    form > input,
+    form > select,
+    form > textarea {
+        min-height: 53px;
+        padding: 14px 15px;
+    }
+
+    form > input[type="file"] {
+        min-height: 106px;
+        padding: 13px;
+    }
+
+    form > input[type="file"]::file-selector-button {
+        display: block;
+        width: 100%;
+        margin: 0 0 9px;
+    }
+
+    form > button[type="submit"] {
+        min-height: 57px;
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 365px) {
+    body {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    body > div {
+        padding-right: 17px;
+        padding-left: 17px;
+    }
+
+    form > label {
+        font-size: .71rem;
+    }
+
+    form > input,
+    form > select,
+    form > textarea {
+        font-size: .85rem;
+    }
+}
+
+@media (min-width: 651px) {
+    body > div {
+        min-height: 650px;
+    }
+
+    form > input[name="cep"],
+    form > label[for="cep"] + input,
+    form > label[for="estado"] + select {
+        min-width: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+    body,
+    body::before,
+    body::after,
+    body > div::before,
+    h1::before {
+        animation: none !important;
+    }
+}

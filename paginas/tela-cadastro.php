@@ -1,3 +1,6 @@
+<!-- 
+1 - a validação de campo não esta funcionando
+2 - melhorar o css que ta uma bosta -->
 <?php
 require "../config/conexao.php";
 
@@ -13,7 +16,7 @@ $senha = $_POST["senha"];
 
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-//verifica se os dados estãoi vazios
+//verifica se os dados estão vazios
 if (empty($nome) || empty($cpf) || empty($telefone) || empty($email) || empty($senha)){
     $erro="Todos os campos são obrigatórios.";
 }
@@ -45,13 +48,56 @@ $stmt->bind_param(
 );
 
     if ($stmt->execute()) {
-        header("Location: login.php");
+        header("Location: tela-login.php");
         exit();
     } else {
         echo "Erro ao cadastrar.";
     }
   }
 }
+
+function validaCPF($cpf) {
+    // Remove caracteres não numéricos
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+    // Verifica se tem 11 dígitos ou se é uma sequência repetida
+    if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Valida os dois dígitos verificadores
+    for ($t = 9; $t < 11; $t++) {
+        $d = 0;
+        for ($c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function formataCPF($cpf) {
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+    if (strlen($cpf) != 11) return $cpf;
+    
+    return substr($cpf, 0, 3) . '.' .
+           substr($cpf, 3, 3) . '.' .
+           substr($cpf, 6, 3) . '-' .
+           substr($cpf, 9, 2);
+}
+
+// Exemplo de uso:
+// $meuCpf = "12345678909";
+// if (validaCPF($meuCpf)) {
+//     echo "CPF Válido: " . formataCPF($meuCpf);
+// } else {
+//     echo "CPF Inválido";
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -94,12 +140,12 @@ $stmt->bind_param(
 
         <div class="input">
             <label>Senha</label>
-            <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
+            <input type="password" id="senha" name="senha" placeholder="Crie uma senha" maxlength="12" required>
         </div>
 
         <div class="input">
             <label>Confirmar senha</label>
-            <input type="password" id="confirmar" name="confirmar" placeholder="Repita sua senha" required>
+            <input type="password" id="confirmar" name="confirmar" placeholder="Repita sua senha" maxlength="12"required>
         </div>
 
         <div class="input">
