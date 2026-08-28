@@ -32,6 +32,7 @@ $sqlSaloes = "
     FROM salao s
     LEFT JOIN salao_categoria sc ON sc.id_salao = s.id_salao
     LEFT JOIN categorias_salao c ON c.id_categoria = sc.id_categoria
+    WHERE s.situacao = 'aceito'
     GROUP BY s.id_salao
     ORDER BY s.id_salao DESC
 ";
@@ -114,6 +115,7 @@ foreach ($saloes as $s) {
             <div class="header-buttons">
                 <?php if (isset($_SESSION["id_usuario"])): ?>
                     <span class="btn-header">Olá, <?= htmlspecialchars($_SESSION["nome"] ?? "") ?></span>
+                    <a href="logout.php" class="btn-header">Sair</a>
                 <?php else: ?>
                     <a href="tela-login.php" class="btn-header">Entrar</a>
                     <a href="tela-cadastro.php" class="btn-header">Cadastrar</a>
